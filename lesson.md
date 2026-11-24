@@ -2217,3 +2217,44 @@ flowchart TD
 - Compile = Prepare the graph.
 - Invoke = Execute the graph.
 - Super-Step = One execution round.
+
+-------------------------------------------------------------------------------------------
+
+
+## 7. 🔗 Sequential Workflow in LangGraph
+
+A **Sequential Workflow** is a workflow pattern in which tasks are executed one after another in a predefined order.
+
+The output of one step becomes the input for the next step. Each task must complete before the next task begins.
+
+### 🔑 Key Characteristics
+
+1. **Step-by-Step Execution:** Tasks execute in a specific sequence.
+2. **Dependency:** The next task depends on the output of the previous task.
+3. **Simple Control Flow:** Execution follows a predefined path.
+4. **Easy to Understand:** Suitable for workflows with a fixed sequence of operations.
+5. **No Parallel Execution:** Tasks are executed one after another rather than simultaneously.
+
+## 🔄 How Sequential Workflow Works
+
+1. The workflow receives an input.
+2. The first node processes the input.
+3. Its output is passed to the second node.
+4. The second node performs its task and passes the output forward.
+5. This process continues until the final node produces the result.
+
+### Flowchart
+
+```mermaid
+flowchart TD
+    A([Start]) --> B[User Input]
+    B --> C[LLM Call 1: Generate Outline]
+    C --> D[LLM Call 2: Generate Content]
+    D --> E[LLM Call 3: Improve Content]
+    E --> F[Final Output]
+    F --> G([End])
+```
+
+---------------------------------------------------------------------------------------------
+
+## 8. 
