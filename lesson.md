@@ -2257,4 +2257,408 @@ flowchart TD
 
 ---------------------------------------------------------------------------------------------
 
-## 8. 
+## 8. # 1. ⚡ Parallel Workflow in LangGraph
+
+A **Parallel Workflow** is a workflow pattern in which multiple independent tasks are executed simultaneously rather than one after another.
+
+All tasks receive the required input, execute independently, and their outputs are combined to generate the final result.
+
+### 🔑 Key Characteristics
+
+1. **Simultaneous Execution:** Multiple tasks execute at the same time.
+2. **Independent Tasks:** Tasks do not necessarily depend on each other's outputs.
+3. **Time Efficiency:** Reduces execution time when multiple independent tasks are involved.
+4. **Result Aggregation:** Outputs from different tasks can be combined into a single result.
+5. **Synchronization:** The workflow can wait for all required tasks to finish before proceeding.
+
+## 🔄 How Parallel Workflow Works
+
+1. The workflow receives an input.
+2. The input is distributed to multiple independent nodes.
+3. Each node performs its assigned task simultaneously.
+4. All nodes generate their respective outputs.
+5. An aggregator collects and combines the outputs.
+6. The final result is generated.
+
+### Flowchart
+
+```mermaid
+flowchart TD
+    A([Start]) --> B[User Input]
+
+    B --> C[Task 1: Analyze Quality]
+    B --> D[Task 2: Analyze Price]
+    B --> E[Task 3: Analyze Reviews]
+
+    C --> F[Aggregator]
+    D --> F
+    E --> F
+
+    F --> G[Final Output]
+    G --> H([End])
+```
+
+## 💻 Example
+
+Suppose we want to build an AI-based product analysis application.
+
+- **Task 1:** Analyze product quality.
+- **Task 2:** Analyze product pricing.
+- **Task 3:** Analyze customer reviews.
+- **Aggregator:** Combine all the results and generate a recommendation.
+
+### Example Input
+
+```text
+Product: iPhone 17
+```
+
+### Workflow Execution
+
+```text
+                  Product Input
+                       |
+          +------------+------------+
+          |            |            |
+          v            v            v
+      Quality       Pricing       Reviews
+      Analysis      Analysis      Analysis
+          |            |            |
+          +------------+------------+
+                       |
+                   Aggregator
+                       |
+                       v
+               Final Recommendation
+```
+
+## 🌍 Real-World Example
+
+**YouTube Video Analysis**
+
+Suppose a user provides a YouTube video URL and wants a complete analysis.
+
+Multiple tasks can execute simultaneously:
+
+1. **Task 1:** Generate a summary of the video.
+2. **Task 2:** Extract important keywords.
+3. **Task 3:** Identify the main topics discussed.
+4. **Task 4:** Generate important questions.
+
+Finally, all the results are combined into a single report.
+
+### Flowchart
+
+```mermaid
+flowchart TD
+    A([Start]) --> B[YouTube Video URL]
+
+    B --> C[Generate Summary]
+    B --> D[Extract Keywords]
+    B --> E[Identify Main Topics]
+    B --> F[Generate Questions]
+
+    C --> G[Combine Results]
+    D --> G
+    E --> G
+    F --> G
+
+    G --> H[Complete Video Analysis]
+    H --> I([End])
+```
+
+## ⭐ Key Takeaways
+
+- Parallel Workflow executes multiple independent tasks simultaneously.
+- It reduces execution time when tasks can run independently.
+- An aggregator can combine the outputs of different tasks.
+- It is useful for data analysis, research, content generation, and multi-agent applications.
+- In LangGraph, parallel execution can be implemented by connecting multiple nodes to the same execution point.
+
+**Remember:** Parallel Workflow = One Input → Multiple Tasks Simultaneously → Aggregation → Final Output.
+
+---
+
+# 2. 🔀 Conditional Workflow in LangGraph
+
+A **Conditional Workflow** is a workflow pattern in which the next step is selected based on a particular condition or decision.
+
+Instead of following a fixed execution path, the workflow chooses different paths depending on the result of the condition.
+
+### 🔑 Key Characteristics
+
+1. **Decision Making:** Selects the next step based on a condition.
+2. **Dynamic Routing:** Different inputs can follow different execution paths.
+3. **Flexibility:** The workflow can handle different situations.
+4. **Branching:** Execution can split into multiple possible paths.
+5. **Condition-Based Execution:** Only the appropriate path is executed based on the decision.
+
+## 🔄 How Conditional Workflow Works
+
+1. The workflow receives an input.
+2. A node processes the input.
+3. A condition is evaluated.
+4. Based on the result, the workflow selects the appropriate path.
+5. The selected node performs its task.
+6. The workflow generates the final output.
+
+### Flowchart
+
+```mermaid
+flowchart TD
+    A([Start]) --> B[Receive User Input]
+    B --> C[Process Input]
+    C --> D{Check Condition}
+
+    D -->|Condition 1| E[Execute Task 1]
+    D -->|Condition 2| F[Execute Task 2]
+    D -->|Condition 3| G[Execute Task 3]
+
+    E --> H[Final Output]
+    F --> H
+    G --> H
+
+    H --> I([End])
+```
+
+## 💻 Example
+
+Suppose we want to build an AI-based customer-support application.
+
+- **Step 1:** Receive the customer's query.
+- **Step 2:** Identify the category of the query.
+- **Step 3:** Route the query based on its category.
+
+Possible conditions:
+
+- Billing-related query → Billing Support.
+- Technical query → Technical Support.
+- General query → General Support.
+
+### Example Input
+
+```text
+User Query: I am unable to reset my password.
+```
+
+### Workflow Execution
+
+```text
+          User Query
+               |
+               v
+       Identify Query Type
+               |
+               v
+        Check Condition
+               |
+       +-------+-------+
+       |       |       |
+       v       v       v
+    Billing Technical General
+    Support  Support  Support
+       |       |       |
+       +-------+-------+
+               |
+               v
+         Final Response
+```
+
+## 🌍 Real-World Example
+
+**Online Shopping Application**
+
+Suppose a customer places an order.
+
+The system checks whether the payment was successful.
+
+- If payment is successful → Confirm the order.
+- If payment fails → Display a payment failure message.
+- If payment is pending → Wait for payment confirmation.
+
+### Flowchart
+
+```mermaid
+flowchart TD
+    A([Start]) --> B[Place Order]
+    B --> C[Process Payment]
+    C --> D{Payment Status}
+
+    D -->|Successful| E[Confirm Order]
+    D -->|Failed| F[Display Payment Failure]
+    D -->|Pending| G[Wait for Confirmation]
+
+    G --> H{Payment Updated?}
+    H -->|Yes| D
+    H -->|No| G
+
+    E --> I([Order Confirmed])
+    F --> J([End])
+```
+
+## ⭐ Key Takeaways
+
+- Conditional Workflow selects the next step based on conditions.
+- It supports branching and dynamic routing.
+- Different inputs can follow different execution paths.
+- It is useful for decision-making applications, customer support, and approval systems.
+- In LangGraph, conditional workflows are implemented using conditional edges and routing functions.
+
+**Remember:** Conditional Workflow = Input → Check Condition → Select Path → Execute Task → Output.
+
+---
+
+# 3. 🔁 Iterative Workflow in LangGraph
+
+An **Iterative Workflow** is a workflow pattern in which a task is repeated multiple times until a particular condition is satisfied or the desired result is achieved.
+
+The workflow evaluates the result after each iteration and decides whether to continue repeating the task or terminate the execution.
+
+### 🔑 Key Characteristics
+
+1. **Repeated Execution:** The same task or group of tasks executes multiple times.
+2. **Feedback Mechanism:** Each iteration can use feedback from the previous iteration.
+3. **Continuous Improvement:** The output can be improved through repeated execution.
+4. **Termination Condition:** The workflow stops when the required condition is satisfied.
+5. **Looping:** The workflow moves back to an earlier node when another iteration is required.
+
+## 🔄 How Iterative Workflow Works
+
+1. The workflow receives an input.
+2. The first node performs the required task.
+3. The output is evaluated.
+4. A condition checks whether the desired result has been achieved.
+5. If the condition is satisfied, the workflow terminates.
+6. If the condition is not satisfied, feedback is provided.
+7. The workflow repeats the task using the updated information.
+8. This process continues until the termination condition is satisfied.
+
+### Flowchart
+
+```mermaid
+flowchart TD
+    A([Start]) --> B[Receive Input]
+    B --> C[Execute Task]
+    C --> D[Evaluate Output]
+    D --> E{Desired Result Achieved?}
+
+    E -->|Yes| F[Final Output]
+    E -->|No| G[Generate Feedback]
+    G --> C
+
+    F --> H([End])
+```
+
+## 💻 Example
+
+Suppose we want to build an AI-based essay improvement application.
+
+- **Step 1:** Receive the student's essay.
+- **Step 2:** Evaluate the essay.
+- **Step 3:** Identify grammatical mistakes and weak arguments.
+- **Step 4:** Generate feedback.
+- **Step 5:** Improve the essay using the feedback.
+- **Step 6:** Evaluate the improved essay again.
+
+If the essay satisfies the required quality standards, the workflow terminates.
+
+Otherwise, the process repeats.
+
+### Example Input
+
+```text
+Topic: Artificial Intelligence
+
+Essay: Artificial intelligence is useful.
+It helps people in many ways.
+```
+
+### Workflow Execution
+
+```text
+           Student Essay
+                 |
+                 v
+           Evaluate Essay
+                 |
+                 v
+           Generate Feedback
+                 |
+                 v
+           Improve Essay
+                 |
+                 v
+          Evaluate Again
+                 |
+                 v
+       Quality Requirements Met?
+              /       \
+            No         Yes
+            |           |
+            v           v
+       Improve Again  Final Essay
+            |           |
+            +--- Loop   v
+                       End
+```
+
+## 🌍 Real-World Example
+
+**AI Code Generation and Optimization**
+
+Suppose a user asks an AI agent to generate a Java program.
+
+1. The LLM generates the initial code.
+2. The code is tested.
+3. Errors are identified.
+4. Feedback is sent to the LLM.
+5. The LLM modifies the code.
+6. The updated code is tested again.
+7. The process continues until the code passes the required tests or reaches a predefined iteration limit.
+
+### Flowchart
+
+```mermaid
+flowchart TD
+    A([Start]) --> B[User Requirement]
+    B --> C[Generate Code]
+    C --> D[Run Tests]
+    D --> E{All Tests Passed?}
+
+    E -->|Yes| F[Return Final Code]
+    E -->|No| G[Identify Errors]
+    G --> H[Generate Feedback]
+    H --> C
+
+    F --> I([End])
+```
+
+## ⭐ Key Takeaways
+
+- Iterative Workflow repeats tasks until a condition is satisfied.
+- It uses feedback to improve previous outputs.
+- It supports loops and repeated evaluations.
+- A termination condition is important to prevent infinite execution.
+- A maximum iteration limit can be used to control execution.
+- In LangGraph, iterative workflows are implemented using cycles and conditional edges.
+
+**Remember:** Iterative Workflow = Execute → Evaluate → Feedback → Repeat → Final Output.
+
+---
+
+# 📊 Comparison: Sequential vs Parallel vs Conditional vs Iterative Workflows
+
+| Feature | Sequential | Parallel | Conditional | Iterative |
+|---|---|---|---|---|
+| Execution | One after another | Simultaneously | Based on conditions | Repeatedly |
+| Task Dependency | Usually dependent | Usually independent | Depends on routing decision | Uses previous iteration |
+| Main Concept | Sequence | Concurrency | Decision-making | Looping |
+| Control Flow | Linear | Multiple branches that converge | Conditional branches | Cyclic |
+| Example | Essay generation | Video analysis | Payment processing | Code improvement |
+
+## 🧠 Quick Revision
+
+- **Sequential:** Execute tasks one after another.
+- **Parallel:** Execute multiple independent tasks simultaneously.
+- **Conditional:** Choose the execution path based on a condition.
+- **Iterative:** Repeat tasks until the desired result is achieved.
