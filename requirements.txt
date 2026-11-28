@@ -20,3 +20,5 @@ langchain-community
 
 ipykernel
 ipython
+
+streamlit
